@@ -268,9 +268,10 @@ This POC demonstrates:
 - [.NET 10 Preview Features](https://devblogs.microsoft.com/dotnet/)
 - [Minimal APIs Documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis)
 
-## 📝 License
+## License
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License, which allows you to freely use, modify, and distribute the code. See the [`LICENSE`](LICENSE) file for full details.
 
 ## ⚠️ Note
 
