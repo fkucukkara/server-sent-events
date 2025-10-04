@@ -1,4 +1,4 @@
-# Server-Sent Events (SSE) with .NET 10 - Educational POC
+# Server-Sent Events (SSE) with .NET 10
 
 This project demonstrates how to implement **Server-Sent Events (SSE)** using the new features introduced in **.NET 10**. It's a simple educational proof-of-concept that shows real-time heart rate monitoring using minimal APIs.
 
@@ -268,16 +268,6 @@ This POC demonstrates:
 - [.NET 10 Preview Features](https://devblogs.microsoft.com/dotnet/)
 - [Minimal APIs Documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis)
 
-## 🤝 Contributing
-
-This is an educational project. Feel free to:
-
-1. Fork the repository
-2. Create feature branches
-3. Add more SSE examples
-4. Improve documentation
-5. Submit pull requests
-
 ## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -285,9 +275,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## ⚠️ Note
 
 This project uses **.NET 10 RC** which is a preview version. For production applications, wait for the stable release or use .NET 8/9 with manual SSE implementation.
-
----
-
-**Happy Learning! 🎉**
-
-If you find this helpful, please ⭐ star the repository and share it with others learning about Server-Sent Events and .NET 10!
