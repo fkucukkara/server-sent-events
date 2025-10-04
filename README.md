@@ -1,19 +1,6 @@
 # Server-Sent Events (SSE) with .NET 10 - Educational POC
 
-This project demonstrates how to implement **Server-Sent Events (SSE)** using the new ## 📁 Project Structure
-
-```
-server-sent-events/
-├── API/
-│   ├── API.csproj              # .NET 10 project file
-│   ├── Program.cs              # Main application with SSE endpoint
-│   ├── API.http               # HTTP test requests
-│   └── Properties/
-│       └── launchSettings.json # Development settings
-├── global.json                # .NET SDK version pinning
-├── server-sent-events.sln     # Solution file
-└── README.md                  # This file
-```s introduced in **.NET 10**. It's a simple educational proof-of-concept that shows real-time heart rate monitoring using minimal APIs.
+This project demonstrates how to implement **Server-Sent Events (SSE)** using the new features introduced in **.NET 10**. It's a simple educational proof-of-concept that shows real-time heart rate monitoring using minimal APIs.
 
 ## 🎯 What is Server-Sent Events (SSE)?
 
@@ -28,6 +15,21 @@ Server-Sent Events is a web standard that allows a server to push data to a web 
 - **`SseItem<T>`** - Strongly-typed SSE item representation
 - **`TypedResults.ServerSentEvents()`** - Built-in minimal API support
 - **`System.Net.ServerSentEvents`** namespace - Complete SSE framework
+
+## 📁 Project Structure
+
+```
+server-sent-events/
+├── API/
+│   ├── API.csproj              # .NET 10 project file
+│   ├── Program.cs              # Main application with SSE endpoint
+│   ├── API.http               # HTTP test requests
+│   └── Properties/
+│       └── launchSettings.json # Development settings
+├── global.json                # .NET SDK version pinning
+├── server-sent-events.sln     # Solution file
+└── README.md                  # This file
+```
 
 ## 🚀 Features
 
@@ -154,28 +156,7 @@ Create your own HTML file to test the SSE endpoint:
 </html>
 ```
 
-### Option 4: Using curl
-
-```bash
-curl -N -H "Accept: text/event-stream" http://localhost:5039/sse-item
-```
-
-## 📁 Project Structure
-
-```
-server-side-events/
-├── API/
-│   ├── API.csproj              # .NET 10 project file
-│   ├── Program.cs              # Main application with SSE endpoint
-│   ├── API.http               # HTTP test requests
-│   └── Properties/
-│       └── launchSettings.json # Development settings
-├── global.json                # .NET SDK version pinning
-├── server-side-events.sln     # Solution file
-└── README.md                  # This file
-```
-
-## 🔍 Code Explanation
+##  Code Explanation
 
 ### Core SSE Implementation
 
