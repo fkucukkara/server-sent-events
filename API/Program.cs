@@ -1,5 +1,5 @@
-using System.Runtime.CompilerServices;
 using System.Net.ServerSentEvents;
+using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,16 +16,18 @@ app.UseHttpsRedirection();
 
 app.MapGet("sse-item", (CancellationToken cancellationToken) =>
 {
-    async IAsyncEnumerable<SseItem<int>> GetHeartRate(
+    static async IAsyncEnumerable<SseItem<int>> GetHeartRate(
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
         {
             var heartRate = Random.Shared.Next(60, 100);
+
             yield return new SseItem<int>(heartRate, eventType: "heartRate")
             {
                 ReconnectionInterval = TimeSpan.FromMinutes(1)
             };
+
             await Task.Delay(2000, cancellationToken);
         }
     }

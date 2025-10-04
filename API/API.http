@@ -1,4 +1,4 @@
-@API_HostAddress = http://localhost:5039
+@API_HostAddress = https://localhost:7144
 
 ### Test Server-Sent Events endpoint
 GET {{API_HostAddress}}/sse-item
@@ -7,10 +7,6 @@ Cache-Control: no-cache
 
 ### Test OpenAPI endpoint (if available)
 GET {{API_HostAddress}}/openapi/v1.json
-Accept: application/json
-
-### Test health check (root endpoint)
-GET {{API_HostAddress}}/
 Accept: application/json
 
 ###

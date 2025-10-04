@@ -82,7 +82,7 @@ cd API
 dotnet run
 ```
 
-The application will start at `http://localhost:5039`
+The application will start at `https://localhost:7144`
 
 ## 🔌 API Endpoints
 
@@ -98,14 +98,14 @@ The application will start at `http://localhost:5039`
 Open `API/API.http` and click "Send Request" on the SSE endpoint:
 
 ```http
-GET http://localhost:5039/sse-item
+GET https://localhost:7144/sse-item
 Accept: text/event-stream
 Cache-Control: no-cache
 ```
 
 ### Option 2: Using Browser
 
-Navigate to: `http://localhost:5039/sse-item`
+Navigate to: `https://localhost:7144/sse-item`
 
 You'll see a continuous stream of heart rate data:
 
@@ -123,7 +123,7 @@ data: 68
 ### Option 3: Using curl
 
 ```bash
-curl -N -H "Accept: text/event-stream" http://localhost:5039/sse-item
+curl -N -H "Accept: text/event-stream" https://localhost:7144/sse-item
 ```
 
 ### Option 4: Using JavaScript Client
@@ -141,7 +141,7 @@ Create your own HTML file to test the SSE endpoint:
     <div id="heartRate">Connecting...</div>
 
     <script>
-        const eventSource = new EventSource('http://localhost:5039/sse-item');
+        const eventSource = new EventSource('https://localhost:7144/sse-item');
         
         eventSource.addEventListener('heartRate', function(event) {
             document.getElementById('heartRate').innerHTML = 
