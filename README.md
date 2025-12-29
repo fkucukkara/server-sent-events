@@ -44,7 +44,7 @@ server-sent-events/
 
 ## 📋 Prerequisites
 
-- **.NET 10 SDK** (RC or later) - [Download here](https://dotnet.microsoft.com/download/dotnet/10.0)
+- **.NET 10 SDK** - [Download here](https://dotnet.microsoft.com/download/dotnet/10.0)
 - **Visual Studio 2025** or **VS Code** (optional)
 
 ## 🛠️ Getting Started
@@ -60,7 +60,7 @@ cd server-sent-events
 
 ```bash
 dotnet --version
-# Should show: 10.0.100-rc.1.25451.107 or later
+# Should show: 10.0.100 or later
 ```
 
 ### 3. Restore Dependencies
@@ -198,7 +198,7 @@ Ensures the project uses .NET 10 SDK:
 ```json
 {
   "sdk": {
-    "version": "10.0.100-rc.1.25451.107",
+    "version": "10.0.100",
     "rollForward": "latestPatch"
   }
 }
@@ -215,7 +215,7 @@ Ensures the project uses .NET 10 SDK:
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0-rc.1.25451.107" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
   </ItemGroup>
 </Project>
 ```
@@ -274,4 +274,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## ⚠️ Note
 
-This project uses **.NET 10 RC** which is a preview version. For production applications, wait for the stable release or use .NET 8/9 with manual SSE implementation.
+This project uses **.NET 10** stable release. The codebase demonstrates modern .NET features and can be used as a reference for production applications.
