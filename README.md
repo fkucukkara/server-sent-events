@@ -52,7 +52,7 @@ server-sent-events/
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/fkucukkara/server-sent-events.git
 cd server-sent-events
 ```
 
@@ -156,14 +156,14 @@ Create your own HTML file to test the SSE endpoint:
 </html>
 ```
 
-##  Code Explanation
+## 📝 Code Explanation
 
 ### Core SSE Implementation
 
 ```csharp
 app.MapGet("sse-item", (CancellationToken cancellationToken) =>
 {
-    async IAsyncEnumerable<SseItem<int>> GetHeartRate(
+    static async IAsyncEnumerable<SseItem<int>> GetHeartRate(
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
