@@ -1,11 +1,21 @@
 @API_HostAddress = https://localhost:7144
 
-### Test Server-Sent Events endpoint
+### Test SSE endpoint - plain string events
+GET {{API_HostAddress}}/string-item
+Accept: text/event-stream
+Cache-Control: no-cache
+
+### Test SSE endpoint - JSON object events
+GET {{API_HostAddress}}/json-item
+Accept: text/event-stream
+Cache-Control: no-cache
+
+### Test SSE endpoint - strongly-typed SseItem<T> with reconnection metadata
 GET {{API_HostAddress}}/sse-item
 Accept: text/event-stream
 Cache-Control: no-cache
 
-### Test OpenAPI endpoint (if available)
+### Test OpenAPI endpoint
 GET {{API_HostAddress}}/openapi/v1.json
 Accept: application/json
 

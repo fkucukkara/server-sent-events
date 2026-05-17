@@ -45,7 +45,7 @@ server-sent-events/
 ## 📋 Prerequisites
 
 - **.NET 10 SDK** - [Download here](https://dotnet.microsoft.com/download/dotnet/10.0)
-- **Visual Studio 2025** or **VS Code** (optional)
+- **Visual Studio 2026** or **VS Code** (optional)
 
 ## 🛠️ Getting Started
 
@@ -88,7 +88,9 @@ The application will start at `https://localhost:7144`
 
 | Endpoint | Method | Description | Response Type |
 |----------|--------|-------------|---------------|
-| `/sse-item` | GET | Server-Sent Events stream of heart rate data | `text/event-stream` |
+| `/string-item` | GET | SSE stream of heart rate data as plain strings | `text/event-stream` |
+| `/json-item` | GET | SSE stream of heart rate data as JSON objects | `text/event-stream` |
+| `/sse-item` | GET | SSE stream using strongly-typed `SseItem<T>` with reconnection metadata | `text/event-stream` |
 | `/openapi/v1.json` | GET | OpenAPI specification | `application/json` |
 
 ## 🧪 Testing the SSE Endpoint
@@ -158,12 +160,57 @@ Create your own HTML file to test the SSE endpoint:
 
 ## 📝 Code Explanation
 
-### Core SSE Implementation
+### Pattern 1 — Plain String Events
 
 ```csharp
-app.MapGet("sse-item", (CancellationToken cancellationToken) =>
+app.MapGet("/string-item", (CancellationToken cancellationToken) =>
 {
-    static async IAsyncEnumerable<SseItem<int>> GetHeartRate(
+    async IAsyncEnumerable<string> GetHeartRate(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            var heartRate = Random.Shared.Next(60, 100);
+            yield return $"Heart Rate: {heartRate} bpm";
+            await Task.Delay(2000, cancellationToken);
+        }
+    }
+
+    return TypedResults.ServerSentEvents(GetHeartRate(cancellationToken), eventType: "heartRate");
+});
+```
+
+### Pattern 2 — JSON Object Events
+
+```csharp
+app.MapGet("/json-item", (CancellationToken cancellationToken) =>
+{
+    async IAsyncEnumerable<HeartRateRecord> GetHeartRate(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            var heartRate = Random.Shared.Next(60, 100);
+            yield return HeartRateRecord.Create(heartRate);
+            await Task.Delay(2000, cancellationToken);
+        }
+    }
+
+    return TypedResults.ServerSentEvents(GetHeartRate(cancellationToken), eventType: "heartRate");
+});
+
+record HeartRateRecord(int HeartRate, DateTime Timestamp)
+{
+    public static HeartRateRecord Create(int heartRate) => new(heartRate, DateTime.UtcNow);
+}
+```
+
+### Pattern 3 — Strongly-Typed `SseItem<T>` with Metadata
+
+```csharp
+app.MapGet("/sse-item", (CancellationToken cancellationToken) =>
+{
+    async IAsyncEnumerable<SseItem<int>> GetHeartRate(
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
@@ -183,11 +230,11 @@ app.MapGet("sse-item", (CancellationToken cancellationToken) =>
 
 ### Key Components
 
-1. **`IAsyncEnumerable<SseItem<int>>`** - Returns a stream of SSE items
-2. **`SseItem<int>`** - Strongly-typed SSE item with data and metadata
-3. **`TypedResults.ServerSentEvents()`** - Converts the stream to SSE response
-4. **`[EnumeratorCancellation]`** - Proper cancellation token propagation
-5. **`eventType: "heartRate"`** - Custom event type for client filtering
+1. **`IAsyncEnumerable<T>`** - Async stream of events; `T` can be `string`, a record, or `SseItem<T>`
+2. **`TypedResults.ServerSentEvents()`** - Converts the stream to an SSE (`text/event-stream`) response
+3. **`[EnumeratorCancellation]`** - Proper cancellation token propagation through async enumerables
+4. **`eventType`** - Custom event type for client-side filtering via `addEventListener('heartRate', handler)`
+5. **`ReconnectionInterval`** - Instructs the client how long to wait before reconnecting (only on `SseItem<T>`)
 
 ## ⚙️ Configuration
 
@@ -198,7 +245,7 @@ Ensures the project uses .NET 10 SDK:
 ```json
 {
   "sdk": {
-    "version": "10.0.100",
+    "version": "10.0.300",
     "rollForward": "latestPatch"
   }
 }
